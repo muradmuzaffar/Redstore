@@ -1,0 +1,96 @@
+{% extends "index.html" %}
+
+{% block body %}
+<style>
+    .content{
+      width: 80%;
+      margin: 0 auto;
+      margin-top: 150px;
+      
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      
+    }
+  
+    .content img{
+      width: 80%;
+      height: auto;
+      margin: 0 auto;
+    }
+  
+    .describe{
+      position: relative;
+      left: 135px;
+      color: #333;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    img.rounded-circle{
+        width: 5%;
+        height: 5%;
+        border: 1px solid grey;
+        border-radius: 50%;
+    }
+  </style>
+  <div class="content">
+    <img src="{{product.image.url}}" alt="">
+    <div class="describe">
+      Created by <span style="color: red; cursor:pointer">{{product.user}}</span> on {{product.date}}
+    </div>
+  
+    <div class="content-body">
+      <p>
+        {{product.describtion | safe}}
+      </p>
+    </div>
+
+    <br><br>
+
+    {% if comments %}
+        {% for comment in comments %}
+        <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle"  src="{{product.image.url}}" alt="">
+            <div class="media-body">
+              <h5 class="mt-0">{{comment.comment_author}}</h5>
+              <p>
+                  {{comment.comment_text}}
+              </p>
+            
+            </div>
+        </div>
+        
+        {% endfor %}
+        
+    {% endif %}
+
+        <div class="card my-4">
+          <h5 class="card-header">Leave a Comment:</h5>
+          <div class="card-body">
+            <form method="POST" action="{%url 'comment' product.id%}" >
+              {% csrf_token %}
+              <label for="uname">Name:</label>
+              <input name="comment_author" type="text" class="form-control" id="uname" placeholder="Enter name" name="uname" required>
+              <div class="form-group">
+                <label for="uname">Comment:</label>
+                <textarea name="comment_text" class="form-control" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Comment</button>
+            </form>
+          </div>
+        </div>
+
+    
+    
+ 
+  
+  
+
+    
+    
+        
+    
+  
+  </div>
+{% endblock body %}

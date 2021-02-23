@@ -1,0 +1,89 @@
+{% extends "index.html" %}
+
+
+{% block body %}
+<style>
+    *{
+      box-sizing: border-box;
+    }
+    .container{
+        margin-top: 150px;
+    }
+
+    .foot{
+      margin-top: 520px
+      
+    }
+
+    .card{
+      margin-top: 40px;
+      
+      display: inline;
+      float: left;
+      margin-left: 40px;
+      background-color: #E7E7E7;
+      
+    }
+
+    
+    .card-title{
+      white-space: nowrap;
+      width: 100%;
+      font-size: 15px;
+    }
+ 
+    .name-date span{
+      color: red;
+      font-weight: 600;
+    }
+</style>
+
+
+<div class="container">
+
+{% if product  %}
+  
+{% for product in product  %}
+<div class="card-content">
+    <div class="card" style="width: 29%;height:400px ">
+      <div class="image-field">
+        <img class="card-img-top" class="product-image" style="height:200px" src="{{product.image.url}}" alt="Card image cap">
+        
+      </div>
+      <p class="name-date">
+        Created by <span>You</span> on {{product.date}}
+      </p>
+      <div class="card-body">
+        <h5 class="card-title">{{product.name}}</h5>
+        <!-- <p class="card-text">{{product.describtion | safe | truncatechars:30 }}....</p> -->
+        <div class="buttons" style="margin-top: 30px;">
+          <a href="{%url 'detail' product.id%}" class="btn btn-primary">Detail</a>
+          <a href="{%url 'delete' product.id%}" class="btn btn-danger">Delete</a>
+          <a href="{%url 'update' product.id%}" class="btn btn-success">Update</a>
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  
+{% endfor %}
+  
+{% else  %}
+    {% if messages %}
+      {% for message in messages|slice:":1" %}
+        <div class="alert alert-danger">
+            <ul class="messages" style="list-style-type: none;">
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                
+            </ul>
+        </div>
+      {% endfor %}
+    {% endif %}
+  
+{% endif %}
+
+</div>
+  
+{% endblock body %}

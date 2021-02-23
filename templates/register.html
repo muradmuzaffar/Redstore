@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+
+
+
+
+{% block body %}
+
+<style>
+    .container{
+        margin-top: 100px;
+    }
+</style>
+  
+
+{% load crispy_forms_tags %}
+<div class="container">
+    <form method = "POST" >
+        {% csrf_token %}
+        {{form | crispy}}
+        {{form.media}}
+        <button class="btn btn-danger">Register</button>
+    </form>
+
+</div>
+{% endblock body %}
